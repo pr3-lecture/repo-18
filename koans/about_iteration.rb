@@ -118,6 +118,7 @@ class AboutIteration < Neo::Koan
   #   file = File.open(filename)
   #   # code to read 'file'
   #
+  # We can handle the lines then
   # When you get to the "AboutSandwichCode" koan, recheck your answer.
 
 end
