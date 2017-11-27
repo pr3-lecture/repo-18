@@ -1,4 +1,4 @@
-; siehe repo 51
+; Silvia Altrichter. Gruppe: siehe repo 51
 ; Aufgabe 1:
 
 ; a)
