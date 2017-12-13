@@ -1,5 +1,7 @@
 ; Beispiel Baum: (10 (5 1 6) (20 14 22))
 
+; if current element is null or same as the inserted value, insert the value.
+; else create node on element and insert node there
 (defun create-child (element value)
     (if (null element)
         value
@@ -19,7 +21,8 @@
         )
     )
 )
-
+; checks if value is in left path and follows it while recreating the original tree.
+; call insert until tree is not a list -> create-child
 (defun create-left (tree value)
     (if (< value (car tree))
          (if (and (listp (cadr tree)) (not (null (cadr tree))))
@@ -29,7 +32,8 @@
          (cadr tree)
     )
 )
-
+; checks if value is in right path and follows it while recreating the original tree
+; call insert until tree is not a list -> create-child
 (defun create-right (tree value)
     (if (> value (car tree))
         (if (and (listp (caddr tree)) (not (null (caddr tree))))
@@ -39,7 +43,8 @@
         (caddr tree)
     ) 
 )
-
+; Fügt val in den Baum tree ein und gibt als Ergebnis den ergänzten Baum zurück. 
+; Am besten wird dabei ein neuer Baum erzeugt.
 (defun insert (tree value) 
     (list 
         (car tree)
@@ -47,21 +52,21 @@
         (create-right tree value)
     )
 )
-
+; reads file for insert-filename method
 (defun read-file (filename)
     (with-open-file(stream filename)
            (loop for word = (read stream nil 'eof)
                 until (eq word 'eof) collect word)
     )
 )
-
+; Fügt die int-Werte, die in der Datei stehen in den Baum ein.
 (defun insert-filename (tree filename) 
     (loop for x in (read-file filename)
          do (setq tree (insert tree x))  
     )
     tree
 )
-
+; Testet, ob val im Baum vorhanden ist.
 (defun contains (tree value)
     (setq found 'F)
     (cond
@@ -78,7 +83,7 @@
     )
     found    
 )
-
+; Ermittelt die Anzahl der Knoten im Baum.
 (defun size (tree)
     (cond
         ((null tree) 0)
@@ -92,7 +97,7 @@
         )    
     )
 )
-
+; Ermittelt die Höhe des Baums.
 (defun height (tree)
     (if (null tree)
         0
@@ -107,7 +112,7 @@
         )
     )
 )
-
+; speichert alle int-Werte der Knoten in einer Liste
 (defun get-elements (tree) 
     (append 
         (append (list (car tree))
@@ -128,7 +133,7 @@
         )
     )
 )
-
+; Liefert das größte Element im Baum.
 (defun getMax (tree)
     (let ((max)))
     (setq max (car tree))
@@ -139,7 +144,7 @@
     )
     max
 )
-
+; Liefert das kleinste Element im Baum.
 (defun getMin (tree)
     (let ((min)))
     (setq min (car tree))
@@ -150,7 +155,9 @@
     )
     min
 )
-
+; returns null if listElement null or same as value
+; rekursion if listelement is list
+; returns listelement if listelement is atom
 (defun calculateSubTree (listElement value)
     (if (null listElement)
         NIL
@@ -163,7 +170,8 @@
         )  
     )
 )
-
+; Entfernt val aus dem Baum und gibt als Ergebnis den geänderten Baum zurÜck. Wenn ein innerer Knoten 
+; gelöscht wird, dann erstetzen Sie ihn durch den kleinsten Knoten in dessen rechtem Teilbaum.
 (defun remove-value (tree value) 
     (if (= (car tree) value)
         (list
@@ -178,11 +186,12 @@
         )
     )
 )
-
+; true genau dann, wenn der Baum leer ist.
 (defun isEmpty (tree)
     (if (null tree) T F)
 )
-
+;Fügt alle Elemente des übergebenen Baums (otherTree) in
+den aktuellen Baum tree ein.
 (defun addAll (tree otherTree)
     (loop for x in (get-elements otherTree)
          do (setq tree (insert tree x))  
@@ -206,7 +215,7 @@
         )    
     )
 )
-
+;Gibt Baum in Levelorder aus
 (defun printLevelorder (tree)
     (loop for x from 1 to (+ 1 (height tree))
          do (printGivenLevel tree x)  
