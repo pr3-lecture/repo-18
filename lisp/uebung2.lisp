@@ -190,8 +190,8 @@
 (defun isEmpty (tree)
     (if (null tree) T F)
 )
-;Fügt alle Elemente des übergebenen Baums (otherTree) in
-den aktuellen Baum tree ein.
+; Fügt alle Elemente des übergebenen Baums (otherTree) in
+; den aktuellen Baum tree ein.
 (defun addAll (tree otherTree)
     (loop for x in (get-elements otherTree)
          do (setq tree (insert tree x))  
