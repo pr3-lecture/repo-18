@@ -16,15 +16,13 @@ char* inputFromBuffer(char* buffer) {
 	}
 	return input;
 }
-/*
+
 int main(int argc, char *argv[]) {
 
 	KEY myKey;
 
-	//if (argv[1]) {
-	if (1) {
-		//myKey.chars = argv[1];
-		myKey.chars = "TPERULES";
+	if (argv[1]) {
+		myKey.chars = argv[1];
 		char buffer[255];
 		FILE* handle;
 		if (access(argv[2], F_OK ) != -1) {
@@ -38,14 +36,13 @@ int main(int argc, char *argv[]) {
 		char* input = inputFromBuffer(buffer);
 		char* output = (char*) (malloc(sizeof(char) * strlen(input)));
 		int error;
-		if (argv[0] == ".//encrypt") {
+		if (strstr(argv[0], "encrypt") != NULL) {
 			error = encrypt(myKey, input, output);
-		} else if (argv[0] == ".//decrypt") {
+		} else if (strstr(argv[0], "decrypt") != NULL) {
 			error = decrypt(myKey, input, output);
 		} else {
-			fprintf( stderr, "type .//encrypt or .//decrypt");
+			fprintf( stderr, "type ./encrypt or ./decrypt");
 		}
-		error = decrypt(myKey, input, output);
 		if (error) {
 			fprintf( stderr, "failed. Please run again with valid input!");
 		} else {
@@ -57,4 +54,4 @@ int main(int argc, char *argv[]) {
 		fprintf( stderr, "I need a key!");
 	}
 	return 0;
-}*/
+}

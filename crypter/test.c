@@ -9,12 +9,12 @@
 
 int tests_run = 0; 
 static char* testEncrypt() {
-    char* input = "HALLO";
+    char* input = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     char* output = (char*) (malloc(sizeof(char)*strlen(input)+1));
     KEY myKey;
     myKey.chars= "TPERULES";
     encrypt(myKey, input, output);
-    mu_assert("Test Encrypt Wrong output!", 0 == strcmp("\\QYY\\", output));
+    mu_assert("Test Encrypt Wrong output!", 0 == strcmp("URFVPJB[]ZN^XBJCEBVF@ZRKMJ", output));
     free(output);
 }
 
@@ -39,13 +39,12 @@ static char* testEncryptInputError() {
 }
 
 static char* testDecrypt() {
-    char* input = "TQGQ";
+    char* input = "URFVPJB[]ZN^XBJCEBVF@ZRKMJ";
     char* output = (char*) (malloc(sizeof(char)*strlen(input)+1));
     KEY myKey;
     myKey.chars= "TPERULES";
     decrypt(myKey, input, output);
-    printf("%s \n", output);
-    mu_assert("Decrypt Wrong output!", 0 == strcmp("C", output));
+    mu_assert("Decrypt Wrong output!", 0 == strcmp("ABCDEFGHIJKLMNOPQRSTUVWXYZ", output));
     free(output);
 }
 
@@ -55,7 +54,7 @@ static char* testDecryptCypherError() {
     KEY myKey;
     myKey.chars= "TPERULES";
     int returnValue = decrypt(myKey, cypherText, output);
-    mu_assert("Decrypt No Cypher Error!", returnValue == 1);
+    mu_assert("Decrypt No Cypher Error!", returnValue == 4);
     free(output);
 }
 static char* testDecryptKeyError() {
